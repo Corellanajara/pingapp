@@ -1,20 +1,46 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
+<ion-header translucent>
+  <ion-toolbar color="primary">
+
     <ion-title>
-      Blank
+      Ips
     </ion-title>
   </ion-toolbar>
+
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content color="primary" fullscreen>
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large">Ip</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-button (click)="createIp()" color="secondary" expand="block">
+    Añadir ip
+    <ion-icon name="add-circle" slot="start"></ion-icon>
+  </ion-button>
+
+  <ion-list style="background: var(--ion-color-primary);">
+    <ion-item-sliding *ngFor="let ip of ips;index as i">
+      <ion-item-options side="start">
+        <ion-item-option color="danger" expandable (click)="borrarIp(i)">
+          Borrar
+        </ion-item-option>
+      </ion-item-options>
+      <ion-item color="primary" >
+        <ion-icon [name]="getIcon(ip)" slot="start"></ion-icon>
+        {{ip.title}}
+        <div slot="end">
+          {{ip.completed}}
+        </div>
+      </ion-item>
+    </ion-item-sliding>
+  </ion-list>
+
 </ion-content>
+<ion-footer>
+  <ion-button (click)="comprobarTodos()" color="secondary" expand="block">
+    Comprobar todos
+    <ion-icon name="checkmark-circle" slot="start"></ion-icon>
+  </ion-button>
+</ion-footer>
