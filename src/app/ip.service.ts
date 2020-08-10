@@ -44,7 +44,7 @@ export class IpService {
       return await this.storage.remove(key);
     }
     public ping(ip){
-      var url = "http://appcosecha.sofiagestionagricola.cl/ips.php";
+      var url = "https://vase.cl/tools/ipValidator.php";
       return this.http.get<any[]>(`${url}/?ip=${ip}` , {
         headers: new HttpHeaders()
       });
