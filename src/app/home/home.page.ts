@@ -14,6 +14,9 @@ export class HomePage {
     async ngOnInit(){
       this.ips = await this.ipService.read();
       console.log(this.ips);
+      if(this.ips.length == 0){
+        this.alertNewFeature("Ahora se puede eliminar!");
+      }
 
     }
     getIcon(ip){
@@ -25,10 +28,12 @@ export class HomePage {
       this.alertConfirmar(key);
 
     }
-    public borrarIp(indice){
+    public async borrarIp(indice){
       console.log(indice);
       var nodo = this.ips.splice(indice,1);
-      this.ipService.delete(nodo['id']);
+      var id = nodo[0]['id'];
+      await this.ipService.delete(id);
+      this.ngOnInit();
     }
     async alertConfirmar(key) {
       const alert = await this.alertController.create({
@@ -65,6 +70,21 @@ export class HomePage {
         ]
       });
 
+      await alert.present();
+    }
+    async alertNewFeature(text) {
+      const alert = await this.alertController.create({
+        cssClass: 'alertLarge',
+        header: text,        
+        buttons: [
+          {
+            text: 'OK',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: () => {}
+          }          
+        ]
+      });
       await alert.present();
     }
     async crear(key,ipNueva){
